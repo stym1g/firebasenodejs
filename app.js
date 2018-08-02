@@ -1,7 +1,6 @@
 var firebase = require("firebase-admin");
 
-//var serviceAccount = require("./serviceAccountKey.json");
-
+adminemail='satyamg650@gmail.com';
 firebase.initializeApp({
   databaseURL: "https://sampleproject-657b2.firebaseio.com/"
 });
@@ -16,7 +15,7 @@ var fname1="";var lname1="";var email1="";
 var userId="ak45";
 var fname="Akash";
 var lname="Jaiswal";
-var email="akash@jaiswal.com";
+var email="akashjaiswalxyz@gmail.com";
 writetoUsers(userId,fname,lname,email);
 
 function writetoUsers(userId, fname,lname, email) {
@@ -24,8 +23,7 @@ function writetoUsers(userId, fname,lname, email) {
     fname: fname,
 	lname: lname,
     email: email
-    
-  });
+    });
   fname1=fname;lname1=lname;email1=email;
  }
  var usermail="";
@@ -42,27 +40,38 @@ function writetoUserInfo(userId, fname,lname, email) {
 
 /////
 
-var nodemailer = require("nodemailer");
+const nodemailer = require("nodemailer");
+const xoauth2 = require('xoauth2');
 
-var smtpTransport = nodemailer.createTransport("SMTP",{
-   service: "Gmail",  // sets automatically host, port and connection security settings
-   auth: {
-       user: "satyamg650@gmail.com",
-       pass: "gmailPassword"
-   }
-});
 
-smtpTransport.sendMail({  //email options
-   from: "Sender Name <satyamg650@gmail>", // sender address.  Must be the same as authenticated user if using Gmail.
-   to: "Receiver Name <"+email+">", // receiver
-   subject: "Emailing with nodemailer", // subject
-   text: usermail, // body
-}, function(error, response){  //callback
-   if(error){
-       console.log(error);
-   }else{
-       console.log("Message sent: " + response.message);
-   }
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+ 
+  auth:{
+	  xoauth2: xoauth2.createXOAuth2Generator({
+		
+    user: adminemail,
+	clientId: '321479175307-q51r8p5o03879ko41csq6e45c51ljt05.apps.googleusercontent.com',
+	clientSecret: '9DLQuWRCZbVT6ADLIpVGpcgs',
+	refreshToken: '1/V_TpMkMxTmjTfV8gfoUUD4lq4gYx9lv_Bt2A7fFA_LM'
    
-   smtpTransport.close(); // shut down the connection pool, no more messages.  Comment this line out to continue sending emails.
+  }
+  )
+  }
 });
+
+var mailOptions = { 
+  from: adminemail,
+  to: 'satyamg840047@gmail.com',
+  subject: 'Welcome message',
+  text: 'Dear '+fname+' Welcome to our app.'
+};
+transporter.sendMail(mailOptions,function(err,res){
+	if(err){
+		console.log('Error');
+	}
+	else{
+		console.log('Email sent');
+	}
+})
