@@ -52,8 +52,8 @@ var transporter = nodemailer.createTransport({
 	  xoauth2: xoauth2.createXOAuth2Generator({
 		
     user: adminemail,
-	clientId: '321479175307-q51r8p5o03879ko41csq6e45c51ljt05.apps.googleusercontent.com',
-	clientSecret: '9DLQuWRCZbVT6ADLIpVGpcgs',
+	clientId: '321479175307-q51r8p5o******ko41csq6e45c51ljt05.apps.googleusercontent.com',
+	clientSecret: '9DLQuW******6ADLIpVGpcgs',
 	refreshToken: '1**xT*************lq4g***********F*******M'
    
   }
